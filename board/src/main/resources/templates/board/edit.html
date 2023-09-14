@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - 테이블</title>
+
+    <!-- 템플릿용 커스텀 폰트 -->
+    <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- 템플릿용 커스텀 스타일시트 -->
+    <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../../css/table.css" rel="stylesheet">
+    <!-- 페이지별 커스텀 스타일시트 -->
+    <link href="../../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div id="page-top">
+        <div id="wrapper">
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    <!-- 상단바 -->
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <!-- 사이드바 토글 (상단바) -->
+                        <form class="form-inline">
+                            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </form>
+                        <!-- 상단바 네비게이션 메뉴 -->
+                        <ul class="navbar-nav ml-auto">
+                            <!-- 네비게이션 메뉴 - 검색 드롭다운 (XS 화면에서만 표시) -->
+                            <li class="nav-item dropdown no-arrow d-sm-none">
+                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-search fa-fw"></i>
+                                </a>
+                                <!-- 드롭다운 - 검색 메시지 -->
+                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                     aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto w-100 navbar-search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-0 small"
+                                                   placeholder="검색..." aria-label="검색"
+                                                   aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <!-- 네비게이션 메뉴 - 사용자 정보 -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">김머시기저시기</span>
+                                    <img class="img-profile rounded-circle"
+                                         src="../../img/undraw_profile.svg">
+                                </a>
+                                <!-- 드롭다운 - 사용자 정보 -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                     aria-labelledby="userDropdown">
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        로그아웃
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- 상단바 끝 -->
+                    <!-- 페이지 콘텐츠 시작 -->
+                    <div class="container-fluid">
+                        <!-- 데이터 테이블 예제 -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">블로그 수정 페이지</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <!-- 페이지 제목 -->
+                                    <h1 class="h3 mb-2 text-gray-800">글 수정</h1>
+                                    <p class="mb-4">글을 수정하세요</p>
+                                    <form th:action="@{/board/edit}" method="post" class="create-form">
+                                        <input type="hidden" name="id" th:value="${board.boardIdx}" />
+                                        <div>
+                                            <label for="title" class="for_title">제목:</label>
+                                            <input type="text" id="title" name="title" th:field="*{board.boardTitle}" />
+                                        </div>
+                                        <div>
+                                            <label for="content" class="for_content">내용:</label>
+                                            <textarea id="contents" name="content" th:field="*{board.boardContent}"></textarea>
+                                        </div>
+                                        <div>
+                                            <button class="button button--winona button--border-thin button--round-s" type="submit">저장</button>
+                                            <button class="button button--winona button--border-thin button--round-s" type="button" th:onclick="|location.href='@{/board/view/{id}(id=${board.boardIdx})}'|">취소</button>
+                                            <button class="button button--winona button--border-thin button--round-s" type="button" th:onclick="|location.href='@{/board/list}'|">목록으로 돌아가기</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 컨테이너 종료 -->
+                </div>
+                <!-- 푸터 -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright © BLOG 2023</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- 푸터 종료 -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

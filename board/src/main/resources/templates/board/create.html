@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SB Admin 2 - 테이블</title>
+
+  <!-- 이 템플릿을 위한 사용자 정의 글꼴 -->
+  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+  <!-- 이 템플릿을 위한 사용자 정의 스타일 -->
+  <link href="../css/sb-admin-2.css" rel="stylesheet">
+  <link href="../css/table.css" rel="stylesheet">
+
+  <!-- 이 페이지를 위한 사용자 정의 스타일 -->
+  <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- 컨텐츠 래퍼 -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <!-- 메인 컨텐츠 -->
+      <div id="content">
+        <!-- 탑 바 -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <!-- 사이드바 토글 (탑 바) -->
+          <form class="form-inline">
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+              <i class="fa fa-bars"></i>
+            </button>
+          </form>
+          <!-- 탑 바 내비게이션 바 -->
+          <ul class="navbar-nav ml-auto">
+            <!-- Nav 항목 - 모바일에서만 표시되는 검색 드롭다운 -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- 드롭다운 - 메시지 -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                   aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small"
+                           placeholder="검색..." aria-label="검색"
+                           aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+            <!-- Nav 항목 - 사용자 정보 -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Gimmagijijagi</span>
+                <img class="img-profile rounded-circle"
+                     src="../img/undraw_profile.svg">
+              </a>
+              <!-- 드롭다운 - 사용자 정보 -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                   aria-labelledby="userDropdown">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  로그아웃
+                </a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+        <!-- 탑 바 종료 -->
+
+        <!-- 페이지 컨텐츠 시작 -->
+        <div class="container-fluid">
+          <!-- DataTales 예제 -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">블로그 게시 페이지</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <!-- 실제 컨텐츠 -->
+                <div class="center_div">
+                  <div class="header_div">
+                    <h1 class="h3 mb-2 text-gray-800">게시판</h1>
+                    <p class="mb-4">게시물 작성</p>
+                  </div>
+                  <form th:action="@{/board/create}" method="post" th:object="${board}" class="create-form">
+                    <div class="title_div">
+                      <label for="title" class="for_title">제목:</label>
+                      <input type="text" id="title" name="title" th:field="*{boardTitle}" />
+                    </div>
+                    <div class="name_div">
+                      <label for="name" class="for_name">이름:</label>
+                      <input type="text" id="name" name="name" th:field="*{boardName}" />
+                    </div>
+                    <div class="content_div">
+                      <label for="content" class="for_content">내용:</label>
+                      <textarea id="contents" name="content" th:field="*{boardContent}"></textarea>
+                    </div>
+                    <div>
+                      <button class="button button--winona button--border-thin button--round-s" type="submit" >등록</button>
+                      <button class="button button--winona button--border-thin button--round-s" type="button" th:onclick="|location.href='@{/board/list}'|">뒤로 가기</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 컨테이너 종료 -->
+
+      </div>
+      <!-- 메인 컨텐츠 종료 -->
+
+      <!-- 푸터 -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © BLOG 2023</span>
+          </div>
+        </div>
+      </footer>
+      <!-- 푸터 종료 -->
+
+    </div>
+    <!-- 컨텐츠 래퍼 종료 -->
+
+  </div>
+  <!-- 페이지 래퍼 종료 -->
+
+  <!-- 페이지 상단으로 스크롤 버튼 -->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- 로그아웃 모달 -->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">현재 세션을 종료하려면 "로그아웃"을 선택하세요.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+          <a class="btn btn-primary" href="login.html">로그아웃</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 부트스트랩 코어 자바스크립트 -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- 핵심 플러그인 자바스크립트 -->
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- 모든 페이지를 위한 사용자 정의 스크립트 -->
+  <script src="../js/sb-admin-2.min.js"></script>
+
+  <!-- 페이지 레벨 플러그인 -->
+  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- 페이지 레벨 사용자 정의 스크립트 -->
+  <script src="../js/demo/datatables-demo.js"></script>
+
+</body>
+
+</html>
